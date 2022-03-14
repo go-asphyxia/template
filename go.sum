@@ -1,0 +1,4 @@
+github.com/go-asphyxia/bytebufferpool v1.0.6 h1:j8e2t4S1/mwHE89rAIQWGzhdNC79JgOyC+GhnlgC3wY=
+github.com/go-asphyxia/bytebufferpool v1.0.6/go.mod h1:I35nsYQhByFqn929LT3huKlUxzMQyhd9I897ZK5DZb4=
+github.com/go-asphyxia/conversion v0.0.0-20220124171918-8ea410b97d4f h1:YGeHG4ez0oNX311sO2ENL9DHIrYYMmEcwhm8ZLsaq20=
+github.com/go-asphyxia/conversion v0.0.0-20220124171918-8ea410b97d4f/go.mod h1:RdOMIMWaZ5U4wfSSC3I2Y2kKdioixU8wp/7Ul8hKGN0=
