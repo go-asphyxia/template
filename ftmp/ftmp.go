@@ -1,48 +1,29 @@
-package main
+package ftmp
 
 import (
 	"errors"
 	"fmt"
+	"io"
+	"path/filepath"
 	"reflect"
 
 	"github.com/go-asphyxia/bytebufferpool"
 )
 
-type (
-	Template struct {
-		Type   reflect.Type
-		Source string
-		Nodes  []Node
+func ParseV2(w io.Writer, r io.Reader, filename, pkg string) error {
+	p := &Parser{
+		s:				NewScaner(r, filename),
+		w:				w,
+		packageName:	pkg,
 	}
-
-	Node struct {
-		Name  string
-		//TODO: ID int
-		Start int
-		End   int
-	}
-
-	User struct {
-		Name string
-		ServiceInformation string
-		ID   int
-	}
-)
-
-func main() {
-	str := "Hello {{ .Name }} with id {{ .ID }}!"
-
-	parse, _ := Parse[User](str)
-	fmt.Println(parse)
-
-	user := User{"Zopa", "", 1}
-	res, _ := parse.Execute(user)
-	fmt.Println(res)
+	return p.ParseTmpl()
 }
 
-func ParseV2[a any](source string) (target *Template, err error) {
-
-	return
+func (p *Parser) ParseTmpl() error {
+	//Scaner
+	s := p.s
+	filepath.Base(s.filePath)
+	return nil
 }
 
 func Parse[a any](source string) (target *Template, err error) {
