@@ -4,25 +4,28 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"path/filepath"
 	"reflect"
 
 	"github.com/go-asphyxia/bytebufferpool"
 )
 
-func ParseV2(w io.Writer, r io.Reader, filename, pkg string) error {
-	p := &Parser{
-		s:				NewScaner(r, filename),
-		w:				w,
-		packageName:	pkg,
-	}
-	return p.ParseTmpl()
-}
+func ParseFile(w io.Writer, r io.Reader, filename string) error {
+	// _ = &Parser{
+	// 	s:		NewScaner(r, filename),
+	// 	w:		w,		
+	// 	file: 	filename,
+	// }
+	b := bytebufferpool.Get()
 
-func (p *Parser) ParseTmpl() error {
-	//Scaner
-	s := p.s
-	filepath.Base(s.filePath)
+	if _, err := b.ReadFrom(r); err != nil {
+		return err
+	}
+
+	if _, err := w.Write(b.Bytes); err != nil {
+		return err
+	}
+
+	bytebufferpool.Put(b)
 	return nil
 }
 
@@ -108,6 +111,6 @@ func (t *Template) Execute(source any) (target string, err error) {
 
 	b.WriteString(t.Source[start:])
 
-	target = b.String()
+	target = string(b.Bytes)
 	return
 }
